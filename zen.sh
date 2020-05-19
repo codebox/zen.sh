@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-# https://freesound.org/s/2166/
-INTERVAL_BELL_URL=https://freesound.org/data/previews/2/2166_3310-lq.mp3
-# https://freesound.org/s/48796/
-ENDING_BELL_URL=https://freesound.org/data/previews/48/48796_527771-lq.mp3
+INTERVAL_BELL_URL=https://codebox.net/assets/audio/bell1.mp3
+ENDING_BELL_URL=https://codebox.net/assets/audio/bell2.mp3
 
 function play {
     URL_VAR=${1}_URL
