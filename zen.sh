@@ -4,6 +4,7 @@ INTERVAL_BELL_URL=https://codebox.net/assets/audio/bell1.mp3
 ENDING_BELL_URL=https://codebox.net/assets/audio/bell2.mp3
 MINUTE_MARKER=.
 INTERVAL_MARKER=+
+LOG_FILE=.log
 
 function play {
     URL_VAR=${1}_URL
@@ -14,6 +15,26 @@ function play {
     fi
     afplay $LOCAL_FILE &
 }
+
+function print_time {
+    PREFIX=$1
+    MINUTES=$2
+    echo "$PREFIX $(( MINUTES / 60 )) hours $(( MINUTES % 60 )) minutes"
+}
+
+function log {
+    echo
+    print_time "This session:" $MINUTES
+    if [[ -f $LOG_FILE ]]; then
+        PREV_MINUTES=$(<$LOG_FILE)
+        NEW_MINUTES=$(( PREV_MINUTES + MINUTES ))
+    else
+        NEW_MINUTES=$MINUTES
+    fi
+    echo $NEW_MINUTES > $LOG_FILE
+    print_time "All sessions:" $NEW_MINUTES
+}
+
 
 DEFAULT_SESSION_LENGTH_MINUTES=60
 SESSION_LENGTH_MINUTES=${1:-$DEFAULT_SESSION_LENGTH_MINUTES}
@@ -28,11 +49,13 @@ fi
 clear
 play INTERVAL_BELL
 
+trap break SIGINT
+
 while :; do
     sleep 60
     MINUTES=$((MINUTES + 1))
     if [[ $MINUTES -eq $SESSION_LENGTH_MINUTES ]]; then
-        echo $INTERVAL_MARKER
+        echo -n $INTERVAL_MARKER
         break
     fi
     if [[ $(( MINUTES % INTERVAL_LENGTH_MINUTES )) -eq 0 ]]; then
@@ -42,5 +65,7 @@ while :; do
         echo -n $MINUTE_MARKER
     fi
 done
+
+log $MINUTES
 
 play ENDING_BELL
