@@ -13,10 +13,9 @@ function play {
     afplay $LOCAL_FILE &
 }
 
+SESSION_LENGTH_MINUTES=25
 INTERVAL_LENGTH_MINUTES=10
-INTERVAL_COUNT=3
 MINUTES=0
-INTERVALS=0
 
 clear
 play INTERVAL_BELL
@@ -24,18 +23,16 @@ play INTERVAL_BELL
 while :; do
     sleep 60
     MINUTES=$((MINUTES + 1))
-    if [ $MINUTES -eq $INTERVAL_LENGTH_MINUTES ]; then
+    if [ $MINUTES -eq $SESSION_LENGTH_MINUTES ]; then
+        echo "+"
+        break
+    fi
+    if [ $(( MINUTES % INTERVAL_LENGTH_MINUTES )) -eq 0 ]; then
         echo -n "+"
-        INTERVALS=$((INTERVALS + 1))
-        if [ $INTERVALS -eq $INTERVAL_COUNT ]; then
-            break
-        fi
         play INTERVAL_BELL
-        MINUTES=0
     else
         echo -n "."
     fi
 done
 
-echo
 play ENDING_BELL
