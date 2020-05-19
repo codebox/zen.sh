@@ -14,13 +14,15 @@ function play {
 }
 
 INTERVAL_LENGTH_MINUTES=10
-INTERVAL_COUNT=6
+INTERVAL_COUNT=3
 MINUTES=0
 INTERVALS=0
 
+clear
+play INTERVAL_BELL
+
 while :; do
-    play INTERVAL_BELL
-    sleep 5
+    sleep 60
     MINUTES=$((MINUTES + 1))
     if [ $MINUTES -eq $INTERVAL_LENGTH_MINUTES ]; then
         echo -n "+"
@@ -28,12 +30,12 @@ while :; do
         if [ $INTERVALS -eq $INTERVAL_COUNT ]; then
             break
         fi
+        play INTERVAL_BELL
         MINUTES=0
     else
         echo -n "."
     fi
 done
 
+echo
 play ENDING_BELL
-exit 0
-
