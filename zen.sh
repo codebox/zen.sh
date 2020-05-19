@@ -6,6 +6,9 @@ MINUTE_MARKER=.
 INTERVAL_MARKER=+
 LOG_FILE=.log
 
+PLAY_INTERVAL_BELL=true
+#PLAY_INTERVAL_BELL=false
+
 function play {
     URL_VAR=${1}_URL
     URL=${!URL_VAR}
@@ -60,7 +63,7 @@ while :; do
     fi
     if [[ $(( MINUTES % INTERVAL_LENGTH_MINUTES )) -eq 0 ]]; then
         echo -n $INTERVAL_MARKER
-        play INTERVAL_BELL
+        $PLAY_INTERVAL_BELL && play INTERVAL_BELL
     else
         echo -n $MINUTE_MARKER
     fi
