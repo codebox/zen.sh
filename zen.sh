@@ -4,14 +4,14 @@ INTERVAL_BELL_URL=https://codebox.net/assets/audio/bell1.mp3
 ENDING_BELL_URL=https://codebox.net/assets/audio/bell2.mp3
 MINUTE_MARKER=.
 INTERVAL_MARKER=+
-LOG_FILE=.log
+LOG_FILE=~/.zen_log
 
 PLAY_INTERVAL_BELL=true
 
 function play {
     URL_VAR=${1}_URL
     URL=${!URL_VAR}
-    LOCAL_FILE=${1}.mp3
+    LOCAL_FILE=$TMPDIR/${1}.mp3
     if [ ! -f $LOCAL_FILE ]; then
         curl -s -o $LOCAL_FILE $URL
     fi

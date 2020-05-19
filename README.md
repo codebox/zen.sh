@@ -1,7 +1,7 @@
 # zen.sh
-A shell script meditation timer for macOS. To begin a session simply run the script along with the number of minutes you wish to practice for.
+A shell script meditation timer for macOS. The script should also work on Linux with only minimal changes (just replace `afplay` with whatever command-line mp3 player you have on your system).
 
-For example, to start a 30 minute session:
+To begin a session simply run the script along with the number of minutes you wish to practice for. For example, to start a 30 minute session:
 
     zen.sh 30
 
@@ -18,4 +18,4 @@ to
 
 The script records how long you have practiced for, and will display your current total at the end of each session.
 
-If you need to finish a session early press Ctrl+C, the time you have completed will still be recorded.
+If you need to finish a session early press `Ctrl+C`, your time will still be recorded.
