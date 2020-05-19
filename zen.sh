@@ -7,7 +7,6 @@ INTERVAL_MARKER=+
 LOG_FILE=.log
 
 PLAY_INTERVAL_BELL=true
-#PLAY_INTERVAL_BELL=false
 
 function play {
     URL_VAR=${1}_URL
