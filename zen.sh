@@ -9,10 +9,10 @@ LOG_FILE=~/.zen_log
 PLAY_INTERVAL_BELL=true
 
 function play {
-    URL_VAR=${1}_URL
-    URL=${!URL_VAR}
     LOCAL_FILE=$TMPDIR/${1}.mp3
     if [ ! -f $LOCAL_FILE ]; then
+        URL_VAR=${1}_URL
+        URL=${!URL_VAR}
         curl -s -o $LOCAL_FILE $URL
     fi
     afplay $LOCAL_FILE &
