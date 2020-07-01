@@ -7,21 +7,9 @@ INTERVAL_MARKER=+
 LOG_FILE=~/.zen_log
 
 PLAY_INTERVAL_BELL=true
-CACHE_BELLS=true
 
 function play {
-	if [ "$CACHE_BELLS" = "true" ]; then
-		case "$(uname -s)" in
-			Darwin*) LOCAL_DIR="$HOME/Library/Caches/zen.sh" ;;
-			*) LOCAL_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zen.sh"
-		esac
-
-		test -d "$LOCAL_DIR" || mkdir "$LOCAL_DIR"
-		LOCAL_FILE="$LOCAL_DIR/${1}.mp3"
-	else
-		LOCAL_FILE="${TMPDIR:-/tmp}/${1}.mp3"
-	fi
-
+	LOCAL_FILE="${TMPDIR:-/tmp}/${1}.mp3"
     if [ ! -f "$LOCAL_FILE" ]; then
         URL_VAR=${1}_URL
         URL=${!URL_VAR}
